@@ -5,38 +5,28 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
   color: white;
+}
+
+header > h1, h3 {
+  text-align: center;
 }
 
 #loginForm {
   display: flex;
   flex-direction: column;
+  min-width: 40vw;
 }
-#loginForm > div {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-}
-
-label {
-  font-size: 12px;
-  width: 100px;
-}
-
-input {
-  flex: 1
-}
-
 input[type="submit"] {
   align-self: center;
-  margin: 0px auto;
-  margin-top: 30px;
   background: #61dafb;
-  padding: 10px;
   width: 100%;
   color: #282c34;
-  font-weight: bolder;
+}
+
+#forgotPasswordLink {
+  font-size: 12px;
+  text-align: right;
 }
 
 .description {

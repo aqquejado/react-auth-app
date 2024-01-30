@@ -1,4 +1,4 @@
-#register_container {
+#confirmation_container {
   background-color: #282c34;
   min-height: 100vh;
   display: flex;
@@ -8,12 +8,16 @@
   color: white;
 }
 
-header > h1, h3 {
+#confirmation_container > header {
+  max-width: 40vw;
+}
+
+#confirmation_container > header > h1, h6 {
   text-align: center;
 }
 
-#register_form {
-  display: flex;
-  flex-direction: column;
+#confirmation_container > a {
+  background: #61dafb;
+  color: #282c34;
   min-width: 40vw;
 }

@@ -5,6 +5,8 @@ import HomeScreen from './components/HomeScreen';
 import React from 'react';
 import LoginScreen from './components/LoginScreen';
 import RegisterScreen from './components/RegisterScreen';
+import SentConfirmationScreen from './components/SentConfirmationScreen';
+import DashboardScreen from './components/DashboardScreen';
 
 const router = createBrowserRouter([
   {
@@ -18,6 +20,14 @@ const router = createBrowserRouter([
   {
     path: "/register",
     element: <RegisterScreen/>,
+  },
+  {
+    path: "/register/confirm",
+    element: <SentConfirmationScreen/>,
+  },
+  {
+    path: "/dashboard",
+    element: <DashboardScreen/>,
   }
 ])
 function App() {
