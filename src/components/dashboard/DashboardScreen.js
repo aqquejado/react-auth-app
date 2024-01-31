@@ -9,11 +9,11 @@ const DashboardScreen = () => {
     navigate("/login", {replace: true})
   }, [])
   return (
-    <div id="confirmation_container">
+    <div id="container">
       <header>
         <h1 className="mb-3">HELLO 👋</h1>
       </header>
-      <button className="mt-4 mb-3 btn btn-primary" onClick={handleOnClick}>Goodbye</button>
+      <button id="logout_button" className="mt-4 mb-3 btn btn-primary" onClick={handleOnClick}>Goodbye</button>
     </div>
   )
 }
