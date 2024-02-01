@@ -21,7 +21,7 @@ const FormInput = ({name, type, onChange, errorMessage, placeholder, value, requ
 
 FormInput.propTypes = {
   name: PropTypes.string,
-  value: PropTypes.oneOf([PropTypes.string, PropTypes.bool]),
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
   type: PropTypes.oneOf(["submit", "text", "checkbox", "password"]),
   onChange: PropTypes.func,
   errorMessage: PropTypes.string,
