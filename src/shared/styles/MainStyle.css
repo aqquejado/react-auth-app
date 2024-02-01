@@ -8,6 +8,10 @@
   color: white;
 }
 
+#container header {
+  margin-bottom: 1.5rem;
+}
+
 #container header > h1, h2, h3, h4, h5, h6 {
   text-align: center;
 }
@@ -18,7 +22,7 @@
   width: 40vw;
 }
 
-#container input[type="submit"], #container button {
+#container input[type="submit"], #container #submit_button {
   align-self: center;
   background: #61dafb;
   width: 100%;
