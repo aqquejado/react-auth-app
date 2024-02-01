@@ -9,7 +9,8 @@ import SentConfirmationScreen from './components/sent-confirmation/SentConfirmat
 import DashboardScreen from './components/dashboard/DashboardScreen';
 import ForgotPasswordScreen from './components/forgot-password/ForgotPasswordScreen';
 import ResetPasswordScreen from './components/reset-password/ResetPasswordScreen';
-import {homePageLoader} from './shared/components/Loader'
+import ProtectedRoute from './components/protected/ProtectedRoute';
+import {authLoader, homePageLoader} from './shared/components/Loader'
 import "./shared/styles/MainStyle.css";
 
 const router = createBrowserRouter([
@@ -19,29 +20,40 @@ const router = createBrowserRouter([
     loader: homePageLoader
   },
   {
-    path: "/login",
-    element: <LoginScreen/>,
+    path: "/auth",
+    loader: authLoader,
+    children: [
+      {
+        path: "login",
+        element: <LoginScreen/>,
+      },
+      {
+        path: "register",
+        element: <RegisterScreen/>,
+      },
+      {
+        path: "register/confirm",
+        element: <SentConfirmationScreen/>,
+      },
+      {
+        path: "forgot-password",
+        element: <ForgotPasswordScreen />
+      },
+      {
+        path: "reset-password",
+        element: <ResetPasswordScreen />
+      },
+    ]
   },
   {
-    path: "/register",
-    element: <RegisterScreen/>,
+    element: <ProtectedRoute />, 
+    children: [
+      {
+        path: "/dashboard",
+        element: <DashboardScreen/>,
+      },
+    ]
   },
-  {
-    path: "/register/confirm",
-    element: <SentConfirmationScreen/>,
-  },
-  {
-    path: "/dashboard",
-    element: <DashboardScreen/>,
-  },
-  {
-    path: "/forgot-password",
-    element: <ForgotPasswordScreen />
-  },
-  {
-    path: "/reset-password",
-    element: <ResetPasswordScreen />
-  }
 ])
 function App() {
   return (

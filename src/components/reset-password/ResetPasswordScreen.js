@@ -30,7 +30,7 @@ const ResetPasswordScreen = () => {
         token
       }
       await resetPassword(data)
-      navigate("/login")
+      navigate("/auth/login")
     } catch (error) {
       const err = checkError(error)
       setErrors(err.errors ?? err.message)

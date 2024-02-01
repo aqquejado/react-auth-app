@@ -32,7 +32,7 @@ const RegisterScreen = () => {
         consent
       }
       await registerUser(data)
-      navigate("/register/confirm")
+      navigate("/auth/register/confirm")
     } catch (error) {
       const err = checkError(error)
       setErrors(err.errors ?? err.message)
@@ -104,7 +104,7 @@ const RegisterScreen = () => {
             )
           })}
           <LoadingButton type="submit" loading={isRegistering} disabled={disabledSubmit || isRegistering} text="Register" id="submit_button" />
-          <Link to="/login" className="btn btn-secondary" role="button">Login</Link>
+          <Link to="/auth/login" className="btn btn-secondary" role="button">Login</Link>
         </form>
       </section>
     </div>

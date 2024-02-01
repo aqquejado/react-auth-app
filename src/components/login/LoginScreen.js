@@ -76,9 +76,9 @@ const LoginScreen = () => {
               />
             )
           })}
-          <Link to="/forgot-password" className="link-primary" id="forgotPasswordLink">Forgot your password?</Link>
+          <Link to="/auth/forgot-password" className="link-primary" id="forgotPasswordLink">Forgot your password?</Link>
           <LoadingButton type="submit" loading={isLoggingIn} disabled={disabledSubmit || isLoggingIn} text="Login" id="submit_button" />
-          <p className="description">or <a href="/register" className="link-primary">Don't have an account yet?</a></p>
+          <p className="description">or <Link to="/auth/register" className="link-primary">Don't have an account yet?</Link></p>
         </form>
       </section>
     </div>

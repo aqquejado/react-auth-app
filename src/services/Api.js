@@ -6,7 +6,9 @@ export const login = async (data) => apiClient.post("/api/login", data, {
     withCredentials: true,
 });
 
-export const logout = async () => apiClient.post("/api/logout");
+export const logout = async () => authApiClient.post("/api/logout", {
+    withCredentials: true,
+});
 
 export const forgotPassword = async (email) => apiClient.post("/api/forgot-password", { email });
 

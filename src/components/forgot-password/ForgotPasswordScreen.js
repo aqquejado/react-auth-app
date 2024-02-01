@@ -29,7 +29,7 @@ const ForgotPasswordScreen = () => {
       setIsSending(false)
     }
   }
-
+  
   return (
     <div id="container">
       <header>
@@ -37,11 +37,11 @@ const ForgotPasswordScreen = () => {
         <h3>Input your email address below so we could help you</h3>
       </header>
       <section>
-        {!isEmpty(message) && <Alert content={errors} closable type="success" onClick={() => setMessage("")}/>}
+        {!isEmpty(message) && <Alert content={message} closable type="success" onClick={() => setMessage("")}/>}
         {typeof errors === "string" && <Alert content={errors} closable type="danger" onClick={() => setErrors({})}/>}
         <form id="form" onSubmit={handleSubmit}>
           <FormInput
-            errorMessage={errors["email"]}
+            errorMessage={errors["email"] ?? ""}
             label="Email Address"
             name="email"
             onChange={setEmail}
@@ -51,7 +51,7 @@ const ForgotPasswordScreen = () => {
             placeholder="janedoe@email.com"
           />
           <LoadingButton type="submit" loading={isSending} disabled={isEmpty(email) || isSending} id="submit_button" />
-          <Link to="/login" className="btn btn-secondary" role="button">Cancel</Link>
+          <Link to="/auth/login" className="btn btn-secondary" role="button">Cancel</Link>
         </form>
       </section>
     </div>

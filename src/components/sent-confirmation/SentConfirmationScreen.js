@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import "./SentConfirmationStyle.css";
 
 const SentConfirmationScreen = () => {
@@ -7,7 +8,7 @@ const SentConfirmationScreen = () => {
         <h1 className="mb-3">✅ Confirm your e-mail</h1>
         <h6>We've sent an email to your email address. Kindly verify your account to be able to login.</h6>
       </header>
-      <a type="button" className="mt-4 mb-3 btn btn-primary" href="/login" role="button">Back to Login</a>
+      <Link type="button" className="mt-4 mb-3 btn btn-primary" to="/auth/login" role="button">Back to Login</Link>
     </div>
   )
 }

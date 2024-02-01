@@ -28,7 +28,12 @@ const DashboardScreen = () => {
     setIsLoggingOut(true)
     try {
       await logout()
-      navigate("/login", {replace: true})
+      document.cookie.split(";").forEach((c) => {
+        document.cookie = c
+          .replace(/^ +/, "")
+          .replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
+      });
+      navigate("/auth/login", {replace: true})
     } catch (error) {
       const err = checkError(error)
       console.log(err)
