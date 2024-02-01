@@ -1,9 +1,12 @@
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import "./RegisterStyle.css";
 import { Link, useNavigate } from "react-router-dom";
 import isEmpty from "lodash/isEmpty";
 import { registerUser } from "../../services/Api";
 import { checkError } from "../../shared/utils/Error";
+import LoadingButton from "../../shared/components/button/LoadingButton";
+import FormInput from "../../shared/components/input/FormInput";
+import Alert from "../../shared/components/alert/Alert";
 
 
 const RegisterScreen = () => {
@@ -16,7 +19,6 @@ const RegisterScreen = () => {
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
 
-  console.log(Object.keys(errors).length, errors)
   const handleSubmit = async (e) => {
     e.preventDefault()
     setIsRegistering(true)
@@ -29,11 +31,11 @@ const RegisterScreen = () => {
         password_confirmation: confirmPassword,
         consent
       }
-      const res = await registerUser(data)
-      console.log(res)
+      await registerUser(data)
+      navigate("/register/confirm")
     } catch (error) {
       const err = checkError(error)
-      if (err.errors) setErrors(err.errors)
+      setErrors(err.errors ?? err.message)
     } finally {
       setIsRegistering(false)
     }
@@ -41,43 +43,67 @@ const RegisterScreen = () => {
 
   const disabledSubmit = useMemo(() => isEmpty(fullName) || isEmpty(email) || isEmpty(password) || isEmpty(confirmPassword) || !consent, [fullName, email, password, confirmPassword, consent])
   
+  const FORM_FIELDS = [
+    {
+      name: "fullName",
+      type: "text",
+      value: fullName,
+      onChange: setFullName,
+      required: true,
+      label: "Full Name"
+    },
+    {
+      name: "email",
+      type: "email",
+      value: email,
+      onChange: setEmail,
+      required: true,
+      label: "Email Address"
+    },
+    {
+      name: "password",
+      type: "password",
+      value: password,
+      onChange: setPassword,
+      required: true,
+      label: "Password"
+    },
+    {
+      name: "password_confirmation",
+      type: "password",
+      value: confirmPassword,
+      onChange: setConfirmPassword,
+      required: true,
+      label: "Confirm Password"
+    },
+    {
+      name: "consent",
+      type: "checkbox",
+      value: consent,
+      onChange: setConsent,
+      required: true,
+      label: <>I agree with the <a href="#" className="link-primary">Personal data processing policy</a></>
+    },
+  ]
   return (
     <div id="container">
       <header>
         <h1>Welcome!</h1>
-        <h3 className="mb-3">🤔 May I know your...</h3>
+        <h3>🤔 May I know your...</h3>
       </header>
       <section>
+        {typeof errors === "string" && <Alert content={errors} closable type="danger" onClick={() => setErrors({})}/>}
         <form id="form" onSubmit={handleSubmit}>
-          <div className="mb-3">
-            <label htmlFor="fullName" className="form-label">Full Name</label>
-            <input type="text" onChange={(e) => setFullName(e.currentTarget.value)} id="fullName" name="fullName" placeholder="Jane Doe" className={`form-control ${errors.name && "is-invalid"}`} required value={fullName}/>
-            <div className="invalid-feedback">{errors.name}</div>
-          </div>
-          <div className="mb-3">
-            <label htmlFor="email" className="form-label">Email</label>
-            <input type="email" onChange={(e) => setEmail(e.currentTarget.value)} id="email" name="email" placeholder="janedoe@mail.com" className={`form-control ${errors.email && "is-invalid"}`} required/>
-            <div className="invalid-feedback">{errors.email}</div>
-          </div>
-          <div className="mb-3">
-            <label htmlFor="password" className="form-label">Password</label>
-            <input type="password" onChange={(e) => setPassword(e.currentTarget.value)} id="password" name="password" className={`form-control ${errors.password && "is-invalid"}`} required/>
-            <div className="invalid-feedback">{errors.password}</div>
-          </div>
-          <div className="mb-3">
-            <label htmlFor="confirmPassword" className="form-label">Confirm Password</label>
-            <input type="password" onChange={(e) => setConfirmPassword(e.currentTarget.value)} id="confirmPassword" name="password_confirmation" className={`form-control ${errors.password_confirmation && "is-invalid"}`} required />
-            <div className="invalid-feedback">{errors.password_confirmation}</div>
-          </div>
-          <div className="form-check">
-            <input type="checkbox" id="consent" name="consent" className={`form-check-input ${errors.password_confirmation && "is-invalid"}`} checked={consent} onChange={(e) => setConsent(e.currentTarget.checked)} />
-            <label htmlFor="consent" className="form-check-label">I agree with the <a href="#" className="link-primary">Personal data processing policy</a></label>
-            <div className="invalid-feedback">{errors.consent}</div>
-          </div>
-          <button class="btn btn-primary mb-3 mt-5 " type="submit" disabled={disabledSubmit || isRegistering}>
-            {isRegistering && <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>}
-            Register
-          </button>
+          {FORM_FIELDS.map((field, index) => {
+            return (
+              <FormInput
+                key={field.name + index}
+                errorMessage={errors[field.name]}
+                {...field}
+              />
+            )
+          })}
+          <LoadingButton type="submit" loading={isRegistering} disabled={disabledSubmit || isRegistering} text="Register" id="submit_button" />
           <Link to="/login" className="btn btn-secondary" role="button">Login</Link>
         </form>
       </section>

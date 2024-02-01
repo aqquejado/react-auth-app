@@ -11,10 +11,11 @@ const authApiClient = axios.create({
 });
 
 authApiClient.interceptors.request.use((config) => {
+  console.log(document.cookie)
   config.headers.Authorization = `Bearer ${
     document.cookie
       .split("; ")
-      .find((row) => row.startsWith("access="))
+      .find((row) => row.startsWith("token="))
       ?.split("=")[1]
   }`;
   return config;
