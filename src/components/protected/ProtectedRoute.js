@@ -5,8 +5,7 @@ const ProtectedRoute = () => {
     .split("; ")
     .find((row) => row.startsWith("token="))
     ?.split("=")[1];
-  console.log("protected", token)
-  return token === "deleted" || !token ? <Navigate to="/login" /> : <Outlet />
+  return token === "deleted" || !token ? <Navigate to="/auth/login" /> : <Outlet />
 }
 
 export default ProtectedRoute;
